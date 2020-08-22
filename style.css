@@ -1,0 +1,23 @@
+body {
+  background-color: #414141;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+body .game-area {
+  -ms-flex-preferred-size: 50%;
+      flex-basis: 50%;
+  height: 50%;
+  border: 2px solid silver;
+  background-color: grey;
+}
+/*# sourceMappingURL=style.css.map */

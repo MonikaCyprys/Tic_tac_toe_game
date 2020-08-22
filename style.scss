@@ -1,0 +1,18 @@
+// color set
+
+body {
+   background-color: #414141;
+   display: flex;
+   justify-content: center;
+   align-content: center;
+   width: 100vw;
+   height: 100vh;
+   overflow: hidden;
+
+   .game-area {
+      flex-basis: 50%;
+      height: 50%;
+      border: 2px solid silver;
+      background-color: grey;
+   }
+}
