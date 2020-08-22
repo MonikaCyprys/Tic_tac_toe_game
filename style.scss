@@ -99,9 +99,13 @@ body {
          flex-basis: 33.33%;
          display: flex;
          justify-content: center;
-         transform: translateY(20%);
+         position: relative;
 
          .circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             border: 10px solid $purple;
             width: 50px;
             height: 50px;
@@ -113,7 +117,7 @@ body {
             background-color: $pink;
             transform: rotate(45deg);
             width: 10px;
-            height:80px;
+            height: 80px;
             border-radius: 20px;
             position: relative;
 
@@ -121,7 +125,7 @@ body {
                content: '';
                display: block;
                position: absolute;
-transform: rotate(90deg);
+               transform: rotate(90deg);
                background-color: $pink;
                width: 10px;
                height: 80px;
