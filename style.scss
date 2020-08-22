@@ -1,18 +1,28 @@
 // color set
+$yellow: #FFE39F;
+$blue: #B5D1E6;
+$light-pink: #E0A29E;
+$pink: #D46E9F;
+$purple: #904E9C;
+
+$color-text: #C0C0C0;
+
+
 
 body {
-   background-color: #414141;
+   background-color: #F0F0F0;
    display: flex;
    justify-content: center;
-   align-content: center;
+   align-items: center;
    width: 100vw;
    height: 100vh;
    overflow: hidden;
 
    .game-area {
-      flex-basis: 50%;
-      height: 50%;
+      flex-basis: 400px;
+      height: 400px;
       border: 2px solid silver;
-      background-color: grey;
+      // background-color: grey;
+      border-radius: 20px;
    }
 }
