@@ -112,13 +112,15 @@ body .game-area .square .circle {
 }
 
 body .game-area .square .cross {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%) rotate(45deg);
+          transform: translate(-50%, -50%) rotate(45deg);
   background-color: #D46E9F;
-  -webkit-transform: rotate(45deg);
-          transform: rotate(45deg);
   width: 10px;
   height: 80px;
   border-radius: 20px;
-  position: relative;
 }
 
 body .game-area .square .cross::before {

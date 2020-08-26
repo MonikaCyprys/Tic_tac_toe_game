@@ -114,12 +114,14 @@ body {
          }
 
          .cross {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(45deg);
             background-color: $pink;
-            transform: rotate(45deg);
             width: 10px;
             height: 80px;
             border-radius: 20px;
-            position: relative;
 
             &::before {
                content: '';
