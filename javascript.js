@@ -27,28 +27,52 @@ function createXOXO(clickedElement, fieldNumber, aiChoose) {
    // PROGRAM MA SPRAWDZAC KTO KLIKA I DODAWAC X LUB 0 NA PLANSZE
 
 }
-const counter = (tabCompare) => {
 
-   const userFields = userCounter.sort();
-   const aiFields = aiCounter.sort();
-   console.log(aiFields)
+function isIncludes(element) {
+   return userCounter.includes(element);
+   // for (index = 0; index < winningMatches.length; index++) {
+   //    if (userCounter.includes(element)) {
+   //       console.log("wygrałeś!")
+
+   //       return true;
+   //    }
+   //    return false;
+   // }
+}
+
+
+function checkNumbers(userNumbers) {
+
+
    for (let i = 0; i < winningMatches.length; i++) {
 
-      if (tabCompare) {
+      let numbers = winningMatches[i].every(isIncludes);
+      // console.log(userCounter, winningMatches[i])
+      // console.log(numbers)
 
-         if (JSON.stringify(userFields) == JSON.stringify(winningMatches[i])) { //!poczytaj o tym
-            console.log("wygrałeś Ty!")
-            tabCompare = false;
-         }
-      } else if (!tabCompare) {
-         if (JSON.stringify(aiFields) == JSON.stringify(winningMatches[i])) {
-            console.log("wygrał Ai!")
-            tabCompare = true;
-         }
-         //! przy czterech ruchach program nie działa gdyż porównóje całe tabelki a one wtedy nie sa równe
+      if (numbers === true) {
+         console.log("wygrałeś!")
+
       }
-
    }
+
+
+   // const userFields = userCounter.sort();
+   // const aiFields = aiCounter.sort();
+   // console.log(userFields, aiFields)
+
+   //       if (JSON.stringify(userFields) == JSON.stringify(winningMatches[i])) { //!poczytaj o tym
+   //          console.log("wygrałeś Ty!")
+   //          tabCompare = false;
+   //       }
+   //    } else if (!tabCompare) {
+   //       if (JSON.stringify(aiFields) == JSON.stringify(winningMatches[i])) {
+   //          console.log("wygrał Ai!")
+   //          tabCompare = true;
+   //       }
+   //       //! przy czterech ruchach program nie działa gdyż porównóje całe tabelki a one wtedy nie sa równe
+   //    }
+   // }
 }
 
 const userChoice = (e) => {
@@ -63,7 +87,7 @@ const userChoice = (e) => {
 
          tabCompare = true;
 
-         counter(tabCompare);
+         checkNumbers(userCounter);
 
          // createXOXO(clickedElement, i);
          const div = document.createElement("div");
@@ -71,7 +95,7 @@ const userChoice = (e) => {
          div.classList.add('circle')
 
          numIndex++;
-         ai(i);
+         // ai(i);
       }
 
    }
@@ -94,7 +118,7 @@ const ai = (myChoice) => {
 
       aiCounter.push(aiChoose);
 
-      counter();
+      checkNumbers();
 
       takenFields.push(aiChoose);
       const div = document.createElement("div");
