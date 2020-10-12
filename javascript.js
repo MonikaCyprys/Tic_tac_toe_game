@@ -28,74 +28,88 @@ function createXOXO(clickedElement, fieldNumber, aiChoose) {
 
 }
 
-function isIncludes(element) {
-   return userCounter.includes(element);
-   // for (index = 0; index < winningMatches.length; index++) {
-   //    if (userCounter.includes(element)) {
-   //       console.log("wygrałeś!")
+function userCheck(element) {
 
-   //       return true;
-   //    }
-   //    return false;
-   // }
+   return userCounter.includes(element);
+
+}
+
+function aiCheck(element) {
+
+   return aiCounter.includes(element);
+
+}
+
+function showUserResults() {
+   console.log("wygrałes")
+}
+
+function showAiResults() {
+   console.log("wygrał ai")
 }
 
 
-function checkNumbers(userNumbers) {
+function checkUserNumbers() {
 
+   let userWin = false;
 
    for (let i = 0; i < winningMatches.length; i++) {
 
-      let numbers = winningMatches[i].every(isIncludes);
-      // console.log(userCounter, winningMatches[i])
-      // console.log(numbers)
+      userWin = winningMatches[i].every(userCheck);
 
-      if (numbers === true) {
-         console.log("wygrałeś!")
-
+      if(userWin === true) {
+         userWin = true;
+        return true;
       }
    }
 
-
-   // const userFields = userCounter.sort();
-   // const aiFields = aiCounter.sort();
-   // console.log(userFields, aiFields)
-
-   //       if (JSON.stringify(userFields) == JSON.stringify(winningMatches[i])) { //!poczytaj o tym
-   //          console.log("wygrałeś Ty!")
-   //          tabCompare = false;
-   //       }
-   //    } else if (!tabCompare) {
-   //       if (JSON.stringify(aiFields) == JSON.stringify(winningMatches[i])) {
-   //          console.log("wygrał Ai!")
-   //          tabCompare = true;
-   //       }
-   //       //! przy czterech ruchach program nie działa gdyż porównóje całe tabelki a one wtedy nie sa równe
-   //    }
-   // }
 }
 
+
+function checkAiNumbers() {
+   
+   let aiWin = false;
+
+   for (let i = 0; i < winningMatches.length; i++) {
+
+      aiWin = winningMatches[i].every(aiCheck); 
+
+      if(aiWin === true) {
+
+         aiWin = true;
+         return true;
+
+      }
+   }
+ 
+
+}
+
+
 const userChoice = (e) => {
+
    let clickedElement = e.target;
 
    for (let i = 0; i <= square.length; i++) {
 
       if (clickedElement === square[i]) {
+
          userCounter.push(i);
 
          takenFields.push(i);
 
-         tabCompare = true;
+         const stopTurn = checkUserNumbers() ? true : false;
 
-         checkNumbers(userCounter);
-
-         // createXOXO(clickedElement, i);
+         //? createXOXO(clickedElement, i);
          const div = document.createElement("div");
          clickedElement.appendChild(div);
          div.classList.add('circle')
 
-         numIndex++;
-         // ai(i);
+         numIndex++; //*need to stop the ai turns
+
+         if (!stopTurn) {
+            ai(i);
+         }
       }
 
    }
@@ -118,7 +132,7 @@ const ai = (myChoice) => {
 
       aiCounter.push(aiChoose);
 
-      checkNumbers();
+      checkAiNumbers();
 
       takenFields.push(aiChoose);
       const div = document.createElement("div");
