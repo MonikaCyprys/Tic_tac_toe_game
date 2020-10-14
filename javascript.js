@@ -9,9 +9,6 @@ let userCounter = [];
 let aiCounter = [];
 
 
-let tabCompare = true;
-
-
 const winningMatches = [
    [0, 3, 6],
    [1, 4, 7],
@@ -23,8 +20,23 @@ const winningMatches = [
    [2, 4, 6]
 ];
 
-function createXOXO(clickedElement, fieldNumber, aiChoose) {
-   // PROGRAM MA SPRAWDZAC KTO KLIKA I DODAWAC X LUB 0 NA PLANSZE
+function createO(clickedElement, stopTurn) { //?if something is undefinded do something {}
+
+   do {
+      const div = document.createElement("div");
+      clickedElement.appendChild(div);
+      div.classList.add('circle')
+      console.log("dodaje element")
+      !stopTurn
+   } while (!stopTurn === false) ///cały czas się wykonuje
+
+}
+
+function createX(aiChoose) {
+
+   const div = document.createElement("div");
+   square[aiChoose].appendChild(div);
+   div.classList.add('cross');
 
 }
 
@@ -57,37 +69,43 @@ function checkUserNumbers() {
 
       userWin = winningMatches[i].every(userCheck);
 
-      if(userWin === true) {
+      if (userWin === true) {
+
          userWin = true;
-        return true;
+
+         showUserResults();
+
+         return true;
       }
    }
 
 }
 
-
 function checkAiNumbers() {
-   
+
    let aiWin = false;
 
    for (let i = 0; i < winningMatches.length; i++) {
 
-      aiWin = winningMatches[i].every(aiCheck); 
+      aiWin = winningMatches[i].every(aiCheck);
 
-      if(aiWin === true) {
+      if (aiWin === true) {
 
          aiWin = true;
-         return true;
 
+         showAiResults();
+
+         return true;
       }
    }
- 
+
 
 }
 
 
 const userChoice = (e) => {
 
+   let stopTurn = false;
    let clickedElement = e.target;
 
    for (let i = 0; i <= square.length; i++) {
@@ -98,17 +116,15 @@ const userChoice = (e) => {
 
          takenFields.push(i);
 
-         const stopTurn = checkUserNumbers() ? true : false;
+         stopTurn = checkUserNumbers() ? true : false;
 
-         //? createXOXO(clickedElement, i);
-         const div = document.createElement("div");
-         clickedElement.appendChild(div);
-         div.classList.add('circle')
+         createO(clickedElement, stopTurn)
 
          numIndex++; //*need to stop the ai turns
 
          if (!stopTurn) {
             ai(i);
+            stopTurn
          }
       }
 
@@ -132,14 +148,12 @@ const ai = (myChoice) => {
 
       aiCounter.push(aiChoose);
 
+
       checkAiNumbers();
 
       takenFields.push(aiChoose);
-      const div = document.createElement("div");
-      square[aiChoose].appendChild(div);
-      div.classList.add('cross');
 
-      // createXOXO(aiChoose)
+      createX(aiChoose);
 
       numIndex++;
       // ? można kliknąć koło krzyżyka albo koła żeby wykonało ruch
