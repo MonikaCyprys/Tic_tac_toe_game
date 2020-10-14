@@ -1,13 +1,13 @@
 const square = [...document.querySelectorAll('.square')];
 
-let takenFields = []; //*need this to ai program to avoid two signs on one place.
 
-let numIndex = 0; //*need this to close program.
+let takenFields = []; //need this to ai program to avoid two signs on one place.
+
+let numIndex = 0; //need this to close program.
 
 let userCounter = [];
 
 let aiCounter = [];
-
 
 const winningMatches = [
    [0, 3, 6],
@@ -20,15 +20,11 @@ const winningMatches = [
    [2, 4, 6]
 ];
 
-function createO(clickedElement, stopTurn) { //?if something is undefinded do something {}
+function createO(clickedElement) {
 
-   do {
-      const div = document.createElement("div");
-      clickedElement.appendChild(div);
-      div.classList.add('circle')
-      console.log("dodaje element")
-      !stopTurn
-   } while (!stopTurn === false) ///cały czas się wykonuje
+   const div = document.createElement("div");
+   clickedElement.appendChild(div);
+   div.classList.add('circle')
 
 }
 
@@ -71,8 +67,6 @@ function checkUserNumbers() {
 
       if (userWin === true) {
 
-         userWin = true;
-
          showUserResults();
 
          return true;
@@ -80,6 +74,7 @@ function checkUserNumbers() {
    }
 
 }
+let stopTurn = false;
 
 function checkAiNumbers() {
 
@@ -103,9 +98,10 @@ function checkAiNumbers() {
 }
 
 
+
 const userChoice = (e) => {
 
-   let stopTurn = false;
+
    let clickedElement = e.target;
 
    for (let i = 0; i <= square.length; i++) {
@@ -116,16 +112,13 @@ const userChoice = (e) => {
 
          takenFields.push(i);
 
-         stopTurn = checkUserNumbers() ? true : false;
-
-         createO(clickedElement, stopTurn)
-
-         numIndex++; //*need to stop the ai turns
-
          if (!stopTurn) {
-            ai(i);
-            stopTurn
+            createO(clickedElement, !stopTurn);
+            stopTurn = checkUserNumbers() ? true : false;
+
          }
+         if (!stopTurn) ai(i); //ogarnąć to ^--- ten sam warunek
+         numIndex++; //need to stop the ai turns
       }
 
    }
@@ -148,12 +141,12 @@ const ai = (myChoice) => {
 
       aiCounter.push(aiChoose);
 
-
-      checkAiNumbers();
-
       takenFields.push(aiChoose);
 
       createX(aiChoose);
+
+      stopTurn = checkAiNumbers() ? true : false;
+      //?program zatrzymujący mój ruch
 
       numIndex++;
       // ? można kliknąć koło krzyżyka albo koła żeby wykonało ruch
