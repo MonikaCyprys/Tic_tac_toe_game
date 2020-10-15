@@ -49,16 +49,15 @@ function aiCheck(element) {
 
 const winnerInfo = document.querySelector('.winners-info')
 
-const remis = document.querySelector(".remis");
-
 function showUserResults() {
    winnerInfo.textContent = "Wygrałeś!";
    const wins = document.querySelector(".wins");
    wins.textContent++
+
 }
 
 function showAiResults() {
-   winnerInfo.textContent = "Przegrałeś";
+   winnerInfo.textContent = "Przegrałeś!";
    const loses = document.querySelector(".loses");
    loses.textContent++
 
@@ -98,13 +97,10 @@ function checkAiNumbers() {
          aiWin = true;
 
          showAiResults();
-
          return true;
       }
    }
    return false;
-
-
 }
 
 const userChoice = (e) => {
@@ -123,10 +119,13 @@ const userChoice = (e) => {
          if (!stopTurn) {
             createO(clickedElement, !stopTurn);
             stopTurn = checkUserNumbers() ? true : false;
-
+            numIndex++;
          }
-         if (!stopTurn) ai(i); //ogarnąć to ^--- ten sam warunek
-         numIndex++; //need to stop the ai turns
+
+         if (!stopTurn) {
+            ai(i);
+         } //ogarnąć to ^--- ten sam warunek
+         //need to stop the ai turns
       }
 
    }
@@ -138,13 +137,14 @@ const ai = (myChoice) => {
    let aiChoose = Math.floor(Math.random() * (square.length - 0)) + 0;
 
    // console.log(`stan tabelki po wylosowaniu liczby przez ai(przed sprawdzeniem w pętli): ja ${i}, ai ${aiChoose}, ${takenFields}`)
-   if (numIndex <= 8) {
+   if (numIndex < 8) {
 
       while (aiChoose === myChoice || takenFields.indexOf(aiChoose) !== -1) { // || zwraca (jeśli znajdzie) index liczby, 
          // jesli nie to -1 więc !== -1 będzie zawsze gdy znajdzie taką samą liczbę w tabeli (odwrotność do -1)
          //? === aiChoose // === myChoice // po drugim losowaniu aichoose nie jest już 'i' więc się nie równa 'i', nie jest true
 
          aiChoose = Math.floor(Math.random() * (square.length - 0)) + 0;
+
       }
 
       aiCounter.push(aiChoose);
@@ -158,7 +158,12 @@ const ai = (myChoice) => {
 
       numIndex++;
       // ? można kliknąć koło krzyżyka albo koła żeby wykonało ruch
-   } else console.log('program zatrzymany')
+   } else {
+      const remis = document.querySelector(".remis");
+      remis.textContent++
+      winnerInfo.textContent = "Remis!";
+
+   }
 }
 
 function clearBoard() {
@@ -189,4 +194,3 @@ square.forEach((area) => {
 })
 
 document.querySelector('.play').addEventListener('click', clearBoard);
-// console.log(numIndex)
