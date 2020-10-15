@@ -1,6 +1,5 @@
 const square = [...document.querySelectorAll('.square')];
 
-
 let takenFields = []; //need this to ai program to avoid two signs on one place.
 
 let numIndex = 0; //need this to close program.
@@ -48,14 +47,24 @@ function aiCheck(element) {
 
 }
 
+const winnerInfo = document.querySelector('.winners-info')
+
+const remis = document.querySelector(".remis");
+
 function showUserResults() {
-   console.log("wygrałes")
+   winnerInfo.textContent = "Wygrałeś!";
+   const wins = document.querySelector(".wins");
+   wins.textContent++
 }
 
 function showAiResults() {
-   console.log("wygrał ai")
+   winnerInfo.textContent = "Przegrałeś";
+   const loses = document.querySelector(".loses");
+   loses.textContent++
+
 }
 
+let stopTurn = false;
 
 function checkUserNumbers() {
 
@@ -72,9 +81,9 @@ function checkUserNumbers() {
          return true;
       }
    }
+   return false;
 
 }
-let stopTurn = false;
 
 function checkAiNumbers() {
 
@@ -93,11 +102,10 @@ function checkAiNumbers() {
          return true;
       }
    }
+   return false;
 
 
 }
-
-
 
 const userChoice = (e) => {
 
@@ -153,7 +161,32 @@ const ai = (myChoice) => {
    } else console.log('program zatrzymany')
 }
 
+function clearBoard() {
+
+   const circleSigns = document.querySelectorAll('.circle');
+   const crossSigns = document.querySelectorAll('.cross')
+
+
+   circleSigns.forEach((elem) => {
+
+      elem.remove();
+   })
+   crossSigns.forEach((elem) => {
+
+      elem.remove();
+   })
+
+   takenFields = [];
+   numIndex = 0;
+   userCounter = [];
+   aiCounter = [];
+   stopTurn = false;
+}
+
 
 square.forEach((area) => {
    area.addEventListener('click', userChoice);
 })
+
+document.querySelector('.play').addEventListener('click', clearBoard);
+// console.log(numIndex)
