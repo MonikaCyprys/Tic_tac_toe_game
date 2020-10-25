@@ -24,7 +24,7 @@ function createO(clickedElement) {
    const div = document.createElement("div");
    clickedElement.appendChild(div);
    div.classList.add('circle')
-
+   // const circles = document.querySelectorAll('.circle');
 }
 
 function createX(aiChoose) {
@@ -111,21 +111,23 @@ const userChoice = (e) => {
    for (let i = 0; i <= square.length; i++) {
 
       if (clickedElement === square[i]) {
+         if (!takenFields.includes(i)) {
+            
+            userCounter.push(i);
 
-         userCounter.push(i);
+            takenFields.push(i);
 
-         takenFields.push(i);
+            if (!stopTurn) {
+               createO(clickedElement, !stopTurn);
+               stopTurn = checkUserNumbers() ? true : false;
+               numIndex++;
+            }
 
-         if (!stopTurn) {
-            createO(clickedElement, !stopTurn);
-            stopTurn = checkUserNumbers() ? true : false;
-            numIndex++;
+            if (!stopTurn) {
+               ai(i);
+            } //ogarnąć to ^--- ten sam warunek
+            //need to stop the ai turns
          }
-
-         if (!stopTurn) {
-            ai(i);
-         } //ogarnąć to ^--- ten sam warunek
-         //need to stop the ai turns
       }
 
    }
@@ -194,3 +196,5 @@ square.forEach((area) => {
 })
 
 document.querySelector('.play').addEventListener('click', clearBoard);
+
+
