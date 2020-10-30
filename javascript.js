@@ -1,12 +1,15 @@
 const square = [...document.querySelectorAll('.square')];
 
+const winnerInfo = document.querySelector('.winners-info');
+
 let takenFields = []; //need this to ai program to avoid two signs on one place.
 
-let numIndex = 0; //need this to close program.
+let stopTheProgram = 0; //stop the proogram if equal 8
 
 let userCounter = [];
 
 let aiCounter = [];
+
 
 const winningMatches = [
    [0, 3, 6],
@@ -19,6 +22,40 @@ const winningMatches = [
    [2, 4, 6]
 ];
 
+
+square.forEach((area) => {
+   area.addEventListener('click', userChoice);
+})
+
+let stopTurn = false;
+
+function userChoice(e) {
+
+   let clickedElement = e.target;
+
+   for (let i = 0; i <= square.length; i++) {
+
+      if (clickedElement === square[i] && !takenFields.includes(i)) {
+
+         userCounter.push(i);
+
+         takenFields.push(i);
+
+         if (!stopTurn) {
+            createO(clickedElement);
+            stopTurn = checkUserNumbers() ? true : false;
+            stopTheProgram++;
+         }
+
+         if (!stopTurn) {
+            ai(i);
+         } //ogarnąć to ^--- ten sam warunek
+         //need to stop the ai turns
+      }
+
+   }
+}
+
 function createO(clickedElement) {
 
    const div = document.createElement("div");
@@ -27,53 +64,11 @@ function createO(clickedElement) {
    // const circles = document.querySelectorAll('.circle');
 }
 
-function createX(aiChoose) {
-
-   const div = document.createElement("div");
-   square[aiChoose].appendChild(div);
-   div.classList.add('cross');
-
-}
-
-function userCheck(element) {
-
-   return userCounter.includes(element);
-
-}
-
-function aiCheck(element) {
-
-   return aiCounter.includes(element);
-
-}
-
-const winnerInfo = document.querySelector('.winners-info')
-
-function showUserResults() {
-   winnerInfo.textContent = "Wygrałeś!";
-   const wins = document.querySelector(".wins");
-   wins.textContent++
-
-}
-
-function showAiResults() {
-   winnerInfo.textContent = "Przegrałeś!";
-   const loses = document.querySelector(".loses");
-   loses.textContent++
-
-}
-
-let stopTurn = false;
-
 function checkUserNumbers() {
-
-   let userWin = false;
 
    for (let i = 0; i < winningMatches.length; i++) {
 
-      userWin = winningMatches[i].every(userCheck);
-
-      if (userWin === true) {
+      if (winningMatches[i].every(userCheck)) {
 
          showUserResults();
 
@@ -83,66 +78,27 @@ function checkUserNumbers() {
    return false;
 
 }
+function userCheck(element) {
 
-function checkAiNumbers() {
+   return userCounter.includes(element);
 
-   let aiWin = false;
-
-   for (let i = 0; i < winningMatches.length; i++) {
-
-      aiWin = winningMatches[i].every(aiCheck);
-
-      if (aiWin === true) {
-
-         aiWin = true;
-
-         showAiResults();
-         return true;
-      }
-   }
-   return false;
 }
 
-const userChoice = (e) => {
+function showUserResults() {
+   winnerInfo.textContent = "Wygrałeś!";
+   const wins = document.querySelector(".wins");
+   wins.textContent++
 
-
-   let clickedElement = e.target;
-
-   for (let i = 0; i <= square.length; i++) {
-
-      if (clickedElement === square[i]) {
-         if (!takenFields.includes(i)) {
-            
-            userCounter.push(i);
-
-            takenFields.push(i);
-
-            if (!stopTurn) {
-               createO(clickedElement, !stopTurn);
-               stopTurn = checkUserNumbers() ? true : false;
-               numIndex++;
-            }
-
-            if (!stopTurn) {
-               ai(i);
-            } //ogarnąć to ^--- ten sam warunek
-            //need to stop the ai turns
-         }
-      }
-
-   }
 }
 
-const ai = (myChoice) => {
+function ai(myChoice) {
 
-   // console.log(`stan tabelki przed wylosowaniem liczby przez ai(przed sprawdzeniem w pętli): ja ${i}, nic , ${takenFields}`)
    let aiChoose = Math.floor(Math.random() * (square.length - 0)) + 0;
 
-   // console.log(`stan tabelki po wylosowaniu liczby przez ai(przed sprawdzeniem w pętli): ja ${i}, ai ${aiChoose}, ${takenFields}`)
-   if (numIndex < 8) {
+   if (stopTheProgram < 8) {
 
-      while (aiChoose === myChoice || takenFields.indexOf(aiChoose) !== -1) { // || zwraca (jeśli znajdzie) index liczby, 
-         // jesli nie to -1 więc !== -1 będzie zawsze gdy znajdzie taką samą liczbę w tabeli (odwrotność do -1)
+      while (aiChoose === myChoice || takenFields.indexOf(aiChoose) !== -1) { //takenFields.includes(aiChoose))
+
          //? === aiChoose // === myChoice // po drugim losowaniu aichoose nie jest już 'i' więc się nie równa 'i', nie jest true
 
          aiChoose = Math.floor(Math.random() * (square.length - 0)) + 0;
@@ -156,10 +112,8 @@ const ai = (myChoice) => {
       createX(aiChoose);
 
       stopTurn = checkAiNumbers() ? true : false;
-      //?program zatrzymujący mój ruch
 
-      numIndex++;
-      // ? można kliknąć koło krzyżyka albo koła żeby wykonało ruch
+      stopTheProgram++;
    } else {
       const remis = document.querySelector(".remis");
       remis.textContent++
@@ -167,6 +121,45 @@ const ai = (myChoice) => {
 
    }
 }
+
+function createX(aiChoose) {
+
+   const div = document.createElement("div");
+   square[aiChoose].appendChild(div);
+   div.classList.add('cross');
+
+}
+
+function checkAiNumbers() {
+
+   for (let i = 0; i < winningMatches.length; i++) {
+
+
+      if (winningMatches[i].every(aiCheck)) {
+
+         showAiResults();
+
+         return true;
+      }
+   }
+   return false;
+}
+
+function aiCheck(element) { //element?
+
+   return aiCounter.includes(element);
+
+}
+
+function showAiResults() {
+   winnerInfo.textContent = "Przegrałeś!";
+   const loses = document.querySelector(".loses");
+   loses.textContent++
+
+}
+
+//CLEAR BOARD
+document.querySelector('.play').addEventListener('click', clearBoard);
 
 function clearBoard() {
 
@@ -184,17 +177,11 @@ function clearBoard() {
    })
 
    takenFields = [];
-   numIndex = 0;
+   stopTheProgram = 0;
    userCounter = [];
    aiCounter = [];
    stopTurn = false;
 }
 
-
-square.forEach((area) => {
-   area.addEventListener('click', userChoice);
-})
-
-document.querySelector('.play').addEventListener('click', clearBoard);
 
 
