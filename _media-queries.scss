@@ -1,0 +1,32 @@
+// MEDIA QUERIES
+@media only screen and (max-width:1000px) {
+
+   .results {
+      flex-direction: column;
+      justify-content: space-between;
+      margin-top: 20px;
+   }
+
+   .result {
+      flex-basis: 25%;
+      margin: 15px 0;
+   }
+}
+
+@media only screen and (max-width: 700px) {
+   .game-area {
+      flex-basis: 80%;
+      height: 600px;
+      margin: 0 auto;
+   }
+
+   .game-panel {
+      margin: 0;
+      flex-basis: 100%;
+   }
+
+   .winners-info {
+      margin: 20px;
+
+   }
+}

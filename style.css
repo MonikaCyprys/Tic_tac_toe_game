@@ -16,19 +16,22 @@ body {
           align-items: center;
   width: 100%;
   height: 100vh;
-  overflow: hidden;
-  padding: 20px 40px 20px 70px;
 }
 
 body .wrapper {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -ms-flex-preferred-size: 100%;
       flex-basis: 100%;
-  padding-left: 20px;
+  padding: 20px;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 body .wrapper .game-area {
@@ -110,9 +113,6 @@ body .wrapper .game-area .square {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
   position: relative;
 }
 
@@ -122,7 +122,8 @@ body .wrapper .game-area .square .circle {
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
-  border: 10px solid #904E9C;
+  border: 10px solid;
+  border-color: #904E9C;
   width: 50%;
   height: 50%;
   border-radius: 50%;
@@ -158,20 +159,19 @@ body .wrapper .game-panel {
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  padding: 20px;
-  -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
+  padding: 25px;
+  -ms-flex-preferred-size: 50%;
+      flex-basis: 50%;
 }
 
 body .wrapper .game-panel .winners-info {
   color: #5c5c5c;
   text-align: center;
-  padding: 0 0 20px 0;
   font-size: 42px;
   -ms-flex-preferred-size: 100%;
       flex-basis: 100%;
-  height: 55px;
+  height: 80px;
+  line-height: 2;
 }
 
 body .wrapper .game-panel .play {
@@ -180,7 +180,7 @@ body .wrapper .game-panel .play {
       flex-basis: 170px;
   height: 50px;
   justify-items: center;
-  margin: 0 auto;
+  margin: 10px auto;
   color: white;
   font-size: 20px;
   border-radius: 20px;
@@ -199,9 +199,8 @@ body .wrapper .game-panel .results {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  padding: 20px 30px;
-  -ms-flex-item-align: end;
-      align-self: flex-end;
+  -ms-flex-item-align: center;
+      align-self: center;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -210,32 +209,34 @@ body .wrapper .game-panel .results {
 body .wrapper .game-panel .results .result {
   -ms-flex-preferred-size: 25%;
       flex-basis: 25%;
+  padding: 0 10px;
   text-align: center;
   font-size: 20px;
   font-weight: 600;
 }
 
-body .wrapper .colors {
+body .wrapper .game-panel .colors {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-preferred-size: calc(100% - 400px);
-      flex-basis: calc(100% - 400px);
-  height: 50px;
-  margin: 10px 0 0 auto;
+  -ms-flex-preferred-size: 100%;
+      flex-basis: 100%;
+  height: 70px;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
 }
 
-body .wrapper .colors h3 {
+body .wrapper .game-panel .colors .change-color {
   color: #5c5c5c;
-  padding: 15px;
+  padding: 20px 15px;
   height: 100%;
   text-align: center;
 }
 
-body .wrapper .colors .color {
+body .wrapper .game-panel .colors .color {
   width: 35px;
   height: 35px;
   border-radius: 50%;
@@ -243,15 +244,50 @@ body .wrapper .colors .color {
   cursor: pointer;
 }
 
-body .wrapper .colors .color.blue {
+body .wrapper .game-panel .colors .color.blue {
   background-color: #78a9ce;
 }
 
-body .wrapper .colors .color.green {
+body .wrapper .game-panel .colors .color.green {
   background-color: #7db971;
 }
 
-body .wrapper .colors .color.yellow {
+body .wrapper .game-panel .colors .color.yellow {
   background-color: #eed876;
+}
+
+@media only screen and (max-width: 1000px) {
+  .results {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    margin-top: 20px;
+  }
+  .result {
+    -ms-flex-preferred-size: 25%;
+        flex-basis: 25%;
+    margin: 15px 0;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .game-area {
+    -ms-flex-preferred-size: 80%;
+        flex-basis: 80%;
+    height: 600px;
+    margin: 0 auto;
+  }
+  .game-panel {
+    margin: 0;
+    -ms-flex-preferred-size: 100%;
+        flex-basis: 100%;
+  }
+  .winners-info {
+    margin: 20px;
+  }
 }
 /*# sourceMappingURL=style.css.map */
