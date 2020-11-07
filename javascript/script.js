@@ -1,6 +1,6 @@
-const square = [...document.querySelectorAll('.square')];
+const square = [...document.querySelectorAll('.game-area__square')];
 
-const winnerInfo = document.querySelector('.winners-info');
+const winnerInfo = document.querySelector('.game-panel__winners-info');
 
 let takenFields = []; //need this to ai program to avoid two signs on one place.
 
@@ -40,7 +40,7 @@ function userChoice(e) {
          userCounter.push(i);
 
          takenFields.push(i);
-
+console.log("działa")
          if (!stopTurn) {
             createO(clickedElement);
             stopTurn = checkUserNumbers() ? true : false;
@@ -159,7 +159,7 @@ function showAiResults() {
 }
 
 //CLEAR BOARD
-document.querySelector('.play').addEventListener('click', clearBoard);
+document.querySelector('.game-panel__play').addEventListener('click', clearBoard);
 
 function clearBoard() {
 
@@ -183,6 +183,38 @@ function clearBoard() {
    stopTurn = false;
    winnerInfo.textContent = "";
 }
+
+// SIGN CHANGE COLOR 
+
+const colors = document.querySelectorAll('.colors__color');
+const changeColorSign = (e) => {
+   let clickedElement = e.target;
+
+   const sign = [...document.querySelectorAll('.circle')];
+
+   if(clickedElement.className === '.colors__color is-blue') {
+
+      sign.forEach((elem) => {
+
+         elem.style.borderColor = "var(--green)";
+      })
+    }
+   //  else if((clickedElement.className === 'color green')) {
+   //    sign.forEach((elem) => {
+
+   //       elem.style.borderColor = "$green";
+   //    })
+   //  } else {
+   //    sign.forEach((elem) => {
+
+   //       elem.style.borderColor = `$yellow`;
+   //    })
+   //  }
+}
+
+colors.forEach((dot) => {
+   dot.addEventListener('click', changeColorSign);
+})
 
 
 
