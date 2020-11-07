@@ -4,19 +4,16 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Tic Tac Toe game</title>
-   <link rel="stylesheet" href="style.css">
+   <title>Tic Tac Togit commie game</title>
+   <link rel="stylesheet" href="style/style.css">
    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
-   <div class="wrapper">
-
-
-      <div class="game-area">
+   <main class="wrapper">
+      <section class="game-area">
          <div class="line vertical"></div>
          <div class="line horizontal"></div>
-
          <div class="square"></div>
          <div class="square"></div>
          <div class="square"></div>
@@ -26,28 +23,23 @@
          <div class="square"></div>
          <div class="square"></div>
          <div class="square"></div>
-
-      </div>
-
-      <div class="game-panel">
+      </section>
+      <section class="game-panel">
          <h1 class="winners-info"></h1>
          <button class="play">Graj</button>
-         <div class="results">
+         <article class="results">
             <div class="result">wygrane: <span class="wins"> 0</span></div>
             <div class="result">przegrane: <span class="loses"> 0</span></div>
             <div class="result">remis: <span class="remis"> 0</span></div>
-         </div>
-         <div class="colors">
+         </article>
+         <article class="colors">
             <h3 class="change-color">zmień kolor:</h3>
             <div class="color blue"></div>
             <div class="color green"></div>
             <div class="color yellow"></div>
-         </div>
-      </div>
-
-
-   </div>
-
+         </article>
+      </section>
+   </main>
    <script src="javascript.js"></script>
 </body>
 
