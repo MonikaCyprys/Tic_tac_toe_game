@@ -182,40 +182,7 @@ function clearBoard() {
    aiCounter = [];
    stopTurn = false;
    winnerInfo.textContent = "";
-
 }
-
-// SIGN CHANGE COLOR 
-
-const colors = document.querySelectorAll('.color');
-const changeColorSign = (e) => {
-   let clickedElement = e.target;
-
-   const sign = [...document.querySelectorAll('.circle')];
-
-   if(clickedElement.className === 'color blue') {
-
-      sign.forEach((elem) => {
-
-         elem.style.borderColor = "var(--green)";
-      })
-    }
-   //  else if((clickedElement.className === 'color green')) {
-   //    sign.forEach((elem) => {
-
-   //       elem.style.borderColor = "$green";
-   //    })
-   //  } else {
-   //    sign.forEach((elem) => {
-
-   //       elem.style.borderColor = `$yellow`;
-   //    })
-   //  }
-}
-
-colors.forEach((dot) => {
-   dot.addEventListener('click', changeColorSign);
-})
 
 
 
