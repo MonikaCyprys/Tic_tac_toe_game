@@ -47,7 +47,7 @@ body .wrapper .game-area {
   position: relative;
 }
 
-body .wrapper .game-area .line {
+body .wrapper .game-area__line {
   position: absolute;
   top: 0;
   left: 0;
@@ -55,7 +55,7 @@ body .wrapper .game-area .line {
   height: 100%;
 }
 
-body .wrapper .game-area .line.vertical::before {
+body .wrapper .game-area__line.is-vertical::before {
   content: '';
   display: block;
   background-color: #c0c0c0;
@@ -68,7 +68,7 @@ body .wrapper .game-area .line.vertical::before {
   z-index: 99;
 }
 
-body .wrapper .game-area .line.vertical::after {
+body .wrapper .game-area__line.is-vertical::after {
   content: '';
   display: block;
   background-color: #c0c0c0;
@@ -81,7 +81,7 @@ body .wrapper .game-area .line.vertical::after {
   z-index: 99;
 }
 
-body .wrapper .game-area .line.horizontal::before {
+body .wrapper .game-area__line.is-horizontal::before {
   content: '';
   display: block;
   background-color: #c0c0c0;
@@ -94,7 +94,7 @@ body .wrapper .game-area .line.horizontal::before {
   z-index: 99;
 }
 
-body .wrapper .game-area .line.horizontal::after {
+body .wrapper .game-area__line.is-horizontal::after {
   content: '';
   display: block;
   background-color: #c0c0c0;
@@ -107,7 +107,7 @@ body .wrapper .game-area .line.horizontal::after {
   z-index: 99;
 }
 
-body .wrapper .game-area .square {
+body .wrapper .game-area__square {
   -ms-flex-preferred-size: 33.33%;
       flex-basis: 33.33%;
   display: -webkit-box;
@@ -116,7 +116,7 @@ body .wrapper .game-area .square {
   position: relative;
 }
 
-body .wrapper .game-area .square .circle {
+body .wrapper .game-area__square .circle {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -129,7 +129,7 @@ body .wrapper .game-area .square .circle {
   border-radius: 50%;
 }
 
-body .wrapper .game-area .square .cross {
+body .wrapper .game-area__square .cross {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -141,7 +141,7 @@ body .wrapper .game-area .square .cross {
   border-radius: 20px;
 }
 
-body .wrapper .game-area .square .cross::before {
+body .wrapper .game-area__square .cross::before {
   content: '';
   display: block;
   position: absolute;
@@ -164,7 +164,7 @@ body .wrapper .game-panel {
       flex-basis: 50%;
 }
 
-body .wrapper .game-panel .winners-info {
+body .wrapper .game-panel__winners-info {
   color: #5c5c5c;
   text-align: center;
   font-size: 42px;
@@ -174,7 +174,7 @@ body .wrapper .game-panel .winners-info {
   line-height: 2;
 }
 
-body .wrapper .game-panel .play {
+body .wrapper .game-panel__play {
   background-color: royalblue;
   -ms-flex-preferred-size: 170px;
       flex-basis: 170px;
@@ -188,7 +188,7 @@ body .wrapper .game-panel .play {
   outline: none;
 }
 
-body .wrapper .game-panel .play:hover {
+body .wrapper .game-panel__play:hover {
   cursor: pointer;
   background-color: #4f76eb;
 }
@@ -206,7 +206,7 @@ body .wrapper .game-panel .results {
           justify-content: center;
 }
 
-body .wrapper .game-panel .results .result {
+body .wrapper .game-panel .results__result {
   -ms-flex-preferred-size: 25%;
       flex-basis: 25%;
   padding: 0 10px;
@@ -215,7 +215,7 @@ body .wrapper .game-panel .results .result {
   font-weight: 600;
 }
 
-body .wrapper .game-panel .colors {
+body .wrapper .colors {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -229,14 +229,14 @@ body .wrapper .game-panel .colors {
       align-self: flex-end;
 }
 
-body .wrapper .game-panel .colors .change-color {
+body .wrapper .colors__change-color {
   color: #5c5c5c;
   padding: 20px 15px;
   height: 100%;
   text-align: center;
 }
 
-body .wrapper .game-panel .colors .color {
+body .wrapper .colors__color {
   width: 35px;
   height: 35px;
   border-radius: 50%;
@@ -244,15 +244,15 @@ body .wrapper .game-panel .colors .color {
   cursor: pointer;
 }
 
-body .wrapper .game-panel .colors .color.blue {
+body .wrapper .colors__color.is-blue {
   background-color: #78a9ce;
 }
 
-body .wrapper .game-panel .colors .color.green {
+body .wrapper .colors__color.is-green {
   background-color: #7db971;
 }
 
-body .wrapper .game-panel .colors .color.yellow {
+body .wrapper .colors__color.is-yellow {
   background-color: #eed876;
 }
 
