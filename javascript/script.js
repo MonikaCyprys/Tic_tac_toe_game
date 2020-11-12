@@ -2,15 +2,22 @@ const square = [...document.querySelectorAll('.game-area__square')];
 
 const winnerInfo = document.querySelector('.game-panel__winners-info');
 
-let takenFields = []; //need this to ai program to avoid two signs on one place.
+let values = {
+   takenFields: [], //need this for ai program to avoid two signs on one place.
+   stopTheProgram: 0, //if is equal to square.length (8) stop the program 
+   userCounter: [],
+   aiCounter: [],
+}
 
-let stopTheProgram = 0; //stop the proogram if equal 8
-
-let userCounter = [];
-
-let aiCounter = [];
-
-
+const initialValues = {
+   takenFields: [],
+   stopTheProgram: 0,
+   userCounter: [],
+   aiCounter: [],
+}
+function reset() {
+   values = { takenFields: [], stopTheProgram: 0, userCounter: [], aiCounter: [] }
+}
 const winningMatches = [
    [0, 3, 6],
    [1, 4, 7],
@@ -35,16 +42,16 @@ function userChoice(e) {
 
    for (let i = 0; i <= square.length; i++) {
 
-      if (clickedElement === square[i] && !takenFields.includes(i)) {
+      if (clickedElement === square[i] && !values.takenFields.includes(i)) {
 
-         userCounter.push(i);
+         values.userCounter.push(i);
 
-         takenFields.push(i);
-console.log("działa")
+         values.takenFields.push(i);
+
          if (!stopTurn) {
             createO(clickedElement);
             stopTurn = checkUserNumbers() ? true : false;
-            stopTheProgram++;
+            values.stopTheProgram++;
          }
 
          if (!stopTurn) {
@@ -52,7 +59,6 @@ console.log("działa")
          } //ogarnąć to ^--- ten sam warunek
          //need to stop the ai turns
       }
-
    }
 }
 
@@ -66,9 +72,9 @@ function createO(clickedElement) {
 
 function checkUserNumbers() {
 
-   for (let i = 0; i < winningMatches.length; i++) {
+   for (let winningMatch of winningMatches) {
 
-      if (winningMatches[i].every(userCheck)) {
+      if (winningMatch.every(userCheck)) {
 
          showUserResults();
 
@@ -76,66 +82,58 @@ function checkUserNumbers() {
       }
    }
    return false;
-
 }
+
 function userCheck(element) {
-
-   return userCounter.includes(element);
-
+   return values.userCounter.includes(element);
 }
 
 function showUserResults() {
    winnerInfo.textContent = "Wygrałeś!";
    const wins = document.querySelector(".wins");
    wins.textContent++;
-
 }
 
-function ai(myChoice) {
+function ai(userChoice) {
 
-   let aiChoose = Math.floor(Math.random() * (square.length - 0)) + 0;
+   let aiChoice = Math.floor(Math.random() * square.length);
 
-   if (stopTheProgram < 8) {
+   if (values.stopTheProgram < 8) {
 
-      while (aiChoose === myChoice || takenFields.indexOf(aiChoose) !== -1) { //takenFields.includes(aiChoose))
+      while (aiChoice === userChoice || values.takenFields.indexOf(aiChoice) !== -1) { //values.takenFields.includes(aiChoice))
 
-         //? === aiChoose // === myChoice // po drugim losowaniu aichoose nie jest już 'i' więc się nie równa 'i', nie jest true
+         //? === aiChoice // === userChoice // po drugim losowaniu aiChoice nie jest już 'i' więc się nie równa 'i', nie jest true
 
-         aiChoose = Math.floor(Math.random() * (square.length - 0)) + 0;
-
+         aiChoice = Math.floor(Math.random() * (square.length - 0)) + 0;
       }
 
-      aiCounter.push(aiChoose);
+      values.aiCounter.push(aiChoice);
 
-      takenFields.push(aiChoose);
+      values.takenFields.push(aiChoice);
 
-      createX(aiChoose);
+      createX(aiChoice);
 
       stopTurn = checkAiNumbers() ? true : false;
 
-      stopTheProgram++;
+      values.stopTheProgram++;
    } else {
       const remis = document.querySelector(".remis");
       remis.textContent++
       winnerInfo.textContent = "Remis!";
-
    }
 }
 
-function createX(aiChoose) {
-
+function createX(aiChoice) {
    const div = document.createElement("div");
-   square[aiChoose].appendChild(div);
+   square[aiChoice].appendChild(div);
    div.classList.add('cross');
-
 }
 
 function checkAiNumbers() {
 
-   for (let i = 0; i < winningMatches.length; i++) {
+   for (let winningMatch of winningMatches) {
 
-
-      if (winningMatches[i].every(aiCheck)) {
+      if (winningMatch.every(aiCheck)) {
 
          showAiResults();
 
@@ -146,16 +144,13 @@ function checkAiNumbers() {
 }
 
 function aiCheck(element) { //element?
-
-   return aiCounter.includes(element);
-
+   return values.aiCounter.includes(element);
 }
 
 function showAiResults() {
    winnerInfo.textContent = "Przegrałeś!";
    const loses = document.querySelector(".loses");
    loses.textContent++;
-
 }
 
 //CLEAR BOARD
@@ -166,7 +161,6 @@ function clearBoard() {
    const circleSigns = document.querySelectorAll('.circle');
    const crossSigns = document.querySelectorAll('.cross')
 
-
    circleSigns.forEach((elem) => {
 
       elem.remove();
@@ -175,30 +169,25 @@ function clearBoard() {
 
       elem.remove();
    })
-
-   takenFields = [];
-   stopTheProgram = 0;
-   userCounter = [];
-   aiCounter = [];
+   reset();
    stopTurn = false;
    winnerInfo.textContent = "";
 }
 
 // SIGN CHANGE COLOR 
-
 const colors = document.querySelectorAll('.colors__color');
 const changeColorSign = (e) => {
    let clickedElement = e.target;
 
    const sign = [...document.querySelectorAll('.circle')];
 
-   if(clickedElement.className === '.colors__color is-blue') {
+   if (clickedElement.className === '.colors__color is-blue') {
 
       sign.forEach((elem) => {
 
          elem.style.borderColor = "var(--green)";
       })
-    }
+   }
    //  else if((clickedElement.className === 'color green')) {
    //    sign.forEach((elem) => {
 
