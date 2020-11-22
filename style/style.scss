@@ -6,11 +6,6 @@ $green: #7db971;
 $pink: #D46E9F;
 $purple: #904E9C;
 
-// :root {
-//    --blue: #78a9ce;
-//    --green: #7db971;
-// }
-
 $shadow-text: #5c5c5c;
 
 * {
@@ -121,7 +116,7 @@ body {
             // justify-content: center;
             position: relative;
 
-            .circle {
+            .isCircle {
                position: absolute;
                top: 50%;
                left: 50%;
@@ -132,9 +127,19 @@ body {
                height: 50%;
                border-radius: 50%;
 
+               &.tis-blueColor {
+                  border-color: $blue;
+               }
+               &.tis-greenColor {
+                  border-color: $green;
+               }
+               &.tis-yellowColor {
+                  border-color: $yellow;
+               }
+
             }
 
-            .cross {
+            .isCross {
                position: absolute;
                top: 50%;
                left: 50%;

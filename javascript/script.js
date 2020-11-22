@@ -2,22 +2,20 @@ const square = [...document.querySelectorAll('.game-area__square')];
 
 const winnerInfo = document.querySelector('.game-panel__winners-info');
 
+
+
 let values = {
-   takenFields: [], //need this for ai program to avoid two signs on one place.
+   takenFields: [], //need this for ai program to avoid two signs on one place
    stopTheProgram: 0, //if is equal to square.length (8) stop the program 
    userCounter: [],
    aiCounter: [],
+   colorDotIsClicked: ""
 }
 
-const initialValues = {
-   takenFields: [],
-   stopTheProgram: 0,
-   userCounter: [],
-   aiCounter: [],
-}
 function reset() {
-   values = { takenFields: [], stopTheProgram: 0, userCounter: [], aiCounter: [] }
+   values = { takenFields: [], stopTheProgram: 0, userCounter: [], aiCounter: [], colorDotIsClicked: "" }
 }
+
 const winningMatches = [
    [0, 3, 6],
    [1, 4, 7],
@@ -28,7 +26,6 @@ const winningMatches = [
    [0, 4, 8],
    [2, 4, 6]
 ];
-
 
 square.forEach((area) => {
    area.addEventListener('click', userChoice);
@@ -54,20 +51,37 @@ function userChoice(e) {
             values.stopTheProgram++;
          }
 
-         if (!stopTurn) {
+         if (!stopTurn) { //need this to stop the ai turns
             ai(i);
          } //ogarnąć to ^--- ten sam warunek
-         //need to stop the ai turns
+
       }
    }
 }
 
 function createO(clickedElement) {
-
    const div = document.createElement("div");
    clickedElement.appendChild(div);
-   div.classList.add('circle')
-   // const circles = document.querySelectorAll('.circle');
+   div.classList.add('isCircle')
+   // switch (changeColorSign) gdy nie jest undefined dodaj style a pozniej dodaj do dom / na strone
+   // switch (changeColorSign) {
+   //    case !("undefined"):
+   //       console.log('Oranges are $0.59 a pound.');
+   //       break;
+   //    case 'Mangoes':
+   //    case 'Papayas':
+   //       console.log('Mangoes and papayas are $2.79 a pound.');
+   //       // expected output: "Mangoes and papayas are $2.79 a pound."
+   //       break;
+   //    default:
+   //       console.log(`Sorry, we are out of`);
+   // }
+   if (values.colorDotIsClicked) {
+      changeColorSign()
+   }
+
+
+   // const circles = document.querySelectorAll('.isCircle');
 }
 
 function checkUserNumbers() {
@@ -126,7 +140,7 @@ function ai(userChoice) {
 function createX(aiChoice) {
    const div = document.createElement("div");
    square[aiChoice].appendChild(div);
-   div.classList.add('cross');
+   div.classList.add('isCross');
 }
 
 function checkAiNumbers() {
@@ -158,8 +172,8 @@ document.querySelector('.game-panel__play').addEventListener('click', clearBoard
 
 function clearBoard() {
 
-   const circleSigns = document.querySelectorAll('.circle');
-   const crossSigns = document.querySelectorAll('.cross')
+   const circleSigns = document.querySelectorAll('.isCircle');
+   const crossSigns = document.querySelectorAll('.isCross')
 
    circleSigns.forEach((elem) => {
 
@@ -174,33 +188,49 @@ function clearBoard() {
    winnerInfo.textContent = "";
 }
 
+// ------------------
 // SIGN CHANGE COLOR 
+// ------------------
+
 const colors = document.querySelectorAll('.colors__color');
-const changeColorSign = (e) => {
-   let clickedElement = e.target;
 
-   const sign = [...document.querySelectorAll('.circle')];
+function changeColorSign(e) { //change from cnst changeColorSign () => {}
 
-   if (clickedElement.className === '.colors__color is-blue') {
+   let circleSigns = [...document.querySelectorAll('.isCircle')];
 
-      sign.forEach((elem) => {
+   let clickedDot = e === undefined ? null : e.target;
 
-         elem.style.borderColor = "var(--green)";
+   let blueDot = clickedDot === null ? null : clickedDot.getAttribute("data-name") === "blue";
+   let greenDot = clickedDot === null ? null : clickedDot.getAttribute("data-name") === "green";
+   let yellowDot = clickedDot === null ? null : clickedDot.getAttribute("data-name") === "yellow";
+
+
+   if (values.colorDotIsClicked === "blue" || blueDot) {
+
+      circleSigns.forEach((elem) => {
+         elem.classList.add("tis-blueColor")
       })
+      values.colorDotIsClicked = "blue";
+
+   } 
+   if (values.colorDotIsClicked === "green" || greenDot) {
+      console.log("działa")
+
+      circleSigns.forEach((elem) => {
+         elem.classList.add("tis-greenColor")
+      })
+      values.colorDotIsClicked = "green";
+
    }
-   //  else if((clickedElement.className === 'color green')) {
-   //    sign.forEach((elem) => {
+    if (values.colorDotIsClicked === "yellow" || yellowDot) {
 
-   //       elem.style.borderColor = "$green";
-   //    })
-   //  } else {
-   //    sign.forEach((elem) => {
+      circleSigns.forEach((elem) => {
+         elem.classList.add("is-yellowColor")
+      })
 
-   //       elem.style.borderColor = `$yellow`;
-   //    })
-   //  }
+      values.colorDotIsClicked = "yellow";
+   }
 }
-
 colors.forEach((dot) => {
    dot.addEventListener('click', changeColorSign);
 })
